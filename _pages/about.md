@@ -5,14 +5,14 @@ permalink: /about/
 ---
 My name is Robertus Diawan Chris
 <br>
-I'm made silly things living in surabaya, passionate about linux, tiling window manager, deep learning, art, and technology in general.
+I'm made silly things who currently live in surabaya, passionate about linux, tiling window manager, deep learning, art, and technology in general.
 
 ### Tiny CV
 #### Current:
 Open for hire
 
 #### Education:
-Bachelor of Mathematics Department. Major in Computer Science. Institut Teknologi Sepuluh Nopember.
+Bachelor of Mathematics in Mathematics Department. Major in Computer Science. Institut Teknologi Sepuluh Nopember.
 
 #### Skill:
 - Python
@@ -32,9 +32,9 @@ A: hibruhtus@gmail.com
 
 Q: Which template did you use?
 <br>
-A: I use fastpages [^*]
+A: I use fastpages[^1]
 
 ### That's all, here it comes the BRUH MOMENTUM 😮
 ![]({{site.baseurl}}/images/memes/bruh-momentum.gif)
 
-[^*]:This website is powered by [fastpages](https://github.com/fastai/fastpages). A blogging platform that natively supports Jupyter notebooks in addition to other formats.
+[^1]:This website is powered by [fastpages](https://github.com/fastai/fastpages). A blogging platform that natively supports Jupyter notebooks in addition to other formats.
