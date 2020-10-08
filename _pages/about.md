@@ -3,9 +3,9 @@ layout: page
 title: About Me
 permalink: /about/
 ---
-My name is Robertus Diawan Chris
+My name is Robertus Diawan Chris.
 <br>
-I'm made silly things who currently live in surabaya, passionate about linux, tiling window manager, deep learning, art, and technology in general.
+I made silly things who currently live in surabaya, passionate about linux, tiling window manager, deep learning, art, and technology in general.
 
 ## Tiny CV
 ### Current:
@@ -14,12 +14,12 @@ Open for hire
 ### Education:
 Bachelor of Mathematics in Mathematics Department. Major in Computer Science. Institut Teknologi Sepuluh Nopember.
 
-### Skill:
+### Skills:
 - Python
 - Adobe Lightroom
 - Adobe Photoshop
 
-## All My [Social Media](https://solo.to/bruhtus)
+### All my [social media](https://solo.to/bruhtus)
 
 ## Q&A
 Q: Why is it so boring?
