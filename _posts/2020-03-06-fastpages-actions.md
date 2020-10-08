@@ -6,6 +6,7 @@ comments: true
 layout: post
 categories: [actions, markdown]
 image: images/fastpages_posts/actions/actions_logo.png
+hide: true
 author: Hamel Husain & Jeremy Howard
 ---
 
