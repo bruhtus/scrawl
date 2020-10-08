@@ -3,9 +3,38 @@ layout: page
 title: About Me
 permalink: /about/
 ---
+My name is Robertus Diawan Chris
+<br>
+I'm made silly things living in surabaya, passionate about linux, tiling window manager, deep learning, art, and technology in general.
 
-This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
+### Tiny CV
+#### Current:
+Open for hire
 
+#### Education:
+Bachelor of Mathematics Department. Major in Computer Science. Institut Teknologi Sepuluh Nopember.
 
+#### Skill:
+- Python
+- Adobe Lightroom
+- Adobe Photoshop
 
-[^1]:a blogging platform that natively supports Jupyter notebooks in addition to other formats.
+### All My [Social Media](https://solo.to/bruhtus)
+
+### Q&A
+Q: Why is it so boring?
+<br>
+A: I'm busy making silly things.
+
+Q: Best way to get in touch?
+<br>
+A: hibruhtus@gmail.com
+
+Q: Which template did you use?
+<br>
+A: I use fastpages [^*]
+
+### That's all, here it comes the BRUH MOMENTUM 😮
+![]({{site.baseurl}}/images/memes/bruh-momentum.gif)
+
+[^*]:This website is powered by [fastpages](https://github.com/fastai/fastpages). A blogging platform that natively supports Jupyter notebooks in addition to other formats.
