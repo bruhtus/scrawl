@@ -8,7 +8,9 @@ My name is Robertus Diawan Chris.
 I made silly things who currently live in surabaya, passionate about linux, tiling window manager, deep learning, art, and technology in general.
 <br>
 I'm currently using manjaro linux distro and i3wm as a window manager.
+
 ---
+
 ## Tiny CV
 ### Current:
 Open for hire
@@ -20,9 +22,13 @@ Bachelor of Mathematics in Mathematics Department. Major in Computer Science. In
 - Python
 - Adobe Lightroom
 - Adobe Photoshop
+
 ---
+
 ### All my [social media](https://solo.to/bruhtus)
+
 ---
+
 ## Q&A
 Q: Why is it so boring?
 <br>
@@ -35,7 +41,9 @@ A: hibruhtus@gmail.com
 Q: Which template did you use?
 <br>
 A: I use fastpages[^1]
+
 ---
+
 ## That's all, here it comes the BRUH MOMENTUM 😮
 ![]({{site.baseurl}}/images/memes/bruh-momentum.gif)
 
