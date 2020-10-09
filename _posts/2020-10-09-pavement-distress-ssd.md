@@ -1,21 +1,26 @@
 ---
 toc: true
 layout: post
-description: A minimal example of using markdown with fastpages.
+description: Detect pavement distress using single shot detector (SSD) model.
 categories: [Deep Learning]
 title: Pavement Distress Detector Using Single Shot Detector (SSD)
 ---
-# Pavement Distress Detector Using Single Shot Detector (SSD)
-
 ## A Brief Explanation About Single Shot Detector (SSD)
 
-Jekyll requires blog post files to be named according to the following format:
+Single shot detector is a deep learning method presented by Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian Szegedy, Scott Reed4, Cheng-Yang Fu, Alexander C. Berg in their research paper [SSD: Single Shot Multibox Detector](https://arxiv.org/abs/1512.02325). There are 2 commonly used SSD model, that is, SSD300 and SSD512.
+<br>
+Here's a brief explanation about SSD300 and SSD512:
+- SSD300: More fast
+- SSD512: More accurate
 
-`YEAR-MONTH-DAY-filename.md`
+Long story short, SSD300 is about speed. If you need speed than you should probably using SSD300 (i haven't tried the mobilenet as base network at the times to type this, so at this time knowledge SSD300 is faster than SSD512). Meanwhile, SSD512 is about accuracy. It doesn't really show up in image processing but in video processing, i notice that there's a frame rate drop while doing live object detection. To be fair, SSD300 has frame rate drop as well but it's still usable (around 7-10 frame per second) but SSD300 has frame rate around 3-5 frame per second. 
+Who want to watch a video with 3 fps?? If you're that kind of person then, go ahead. You do you mate.
 
-Where `YEAR` is a four-digit number, `MONTH` and `DAY` are both two-digit numbers, and `filename` is whatever file name you choose, to remind yourself what this post is about. `.md` is the file extension for markdown files.
+For the record, at that time when I try live detection, i use opencv to display live detection video. i'm not sure whether it is opencv fault or the model fault because if I save the video result, the video itself has no frame rate drop. It's weird but it happens, so let's go on with saving the video and forget about live detection (for now, until i find some way to do live detection).
 
-The first line of the file should start with a single hash character, then a space, then your title. This is how you create a "*level 1 heading*" in markdown. Then you can create level 2, 3, etc headings as you wish but repeating the hash character, such as you see in the line `## File names` above.
+So, in this project i'm not gonna make it live detection. Rather than live detections, we're gonna save the video result first and then display it later. That way it could also reduce some computational cost.
+
+For those who still confused about live detection, to make things simpler, live detection is when you process the video, detect the object, and play the video at the same time. After you detect the object, you immediately display the frame that just recently processed and then processed the next frame. Repeat.
 
 ## Take A Video (Training Video and Testing Video)
 
