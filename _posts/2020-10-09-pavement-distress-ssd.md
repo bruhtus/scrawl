@@ -3,6 +3,7 @@ toc: true
 layout: post
 description: Detect pavement distress using single shot detector (SSD) model.
 categories: [Deep Learning]
+image: images/pavement-distress-ssd/logo.jpg
 title: Pavement Distress Detector Using Single Shot Detector (SSD)
 ---
 ## A Brief Explanation About Single Shot Detector (SSD)
@@ -10,8 +11,8 @@ title: Pavement Distress Detector Using Single Shot Detector (SSD)
 Single shot detector is a deep learning method presented by Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian Szegedy, Scott Reed4, Cheng-Yang Fu, Alexander C. Berg in their research paper [SSD: Single Shot Multibox Detector](https://arxiv.org/abs/1512.02325). There are 2 commonly used SSD model, that is, SSD300 and SSD512.
 <br>
 Here's a brief explanation about SSD300 and SSD512:
-- SSD300: More fast
-- SSD512: More accurate
+- SSD300: More fast.
+- SSD512: More accurate.
 
 Long story short, SSD300 is about speed. If you need speed than you should probably using SSD300 (i haven't tried the mobilenet as base network at the times to type this, so at this time knowledge SSD300 is faster than SSD512). Meanwhile, SSD512 is about accuracy. It doesn't really show up in image processing but in video processing, i notice that there's a frame rate drop while doing live object detection. To be fair, SSD300 has frame rate drop as well but it's still usable (around 7-10 frame per second) but SSD300 has frame rate around 3-5 frame per second. 
 Who want to watch a video with 3 fps?? If you're that kind of person then, go ahead. You do you mate.
@@ -21,6 +22,8 @@ For the record, at that time when I try live detection, i use opencv to display 
 So, in this project i'm not gonna make it live detection. Rather than live detections, we're gonna save the video result first and then display it later. That way it could also reduce some computational cost.
 
 For those who still confused about live detection, to make things simpler, live detection is when you process the video, detect the object, and play the video at the same time. After you detect the object, you immediately display the frame that just recently processed and then processed the next frame. Repeat.
+
+### Single Shot Detector (SSD) Architecture That's Used in This Project
 
 ## Take A Video (Training Video and Testing Video)
 
