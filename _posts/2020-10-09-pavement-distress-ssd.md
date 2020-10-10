@@ -61,7 +61,7 @@ After feature extraction process in base network, the next layers is to change l
 With atrous convolution we can expand area of observation for feature extraction while maintaning the amount of parameters fewer than traditional convolution operation.
 
 #### Extra Feature Layers
-Extra feature layers is a prediction layers. In this layer, the model predict the object using default box. Default box is a box with various aspect ratio in every location of feature maps with different size. You can see an example of default box below (from SSD researh paper): <br>
+Extra feature layers is a prediction layers. In this layer, the model predict the object using default box. Default box is a box with various aspect ratio in every location of feature maps with different size. You can see an example of default box below (from SSD research paper): <br>
 ![]({{site.baseurl}}/images/pavement-distress-ssd/default-box.png)
 
 In the last layer is a collection of default boxes which closer to ground truth box with confidence score from that default boxes.
