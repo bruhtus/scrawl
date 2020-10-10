@@ -128,7 +128,7 @@ class DatasetCatalog:
             )
             return dict(factory="MyDataset", args=args)
 
-         if "my_custom_test_dataset" in name:
+         elif "my_custom_test_dataset" in name:
             my_custom_train_dataset = DatasetCatalog.DATA_DIR
             attrs = DatasetCatalog.DATASETS[name]
             args = dict(
