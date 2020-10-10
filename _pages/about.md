@@ -7,6 +7,8 @@ My name is Robertus Diawan Chris.
 <br>
 I made silly things who currently live in surabaya, passionate about linux, tiling window manager, deep learning, art, and technology in general.
 <br>
+I go normal from time to time.
+<br>
 I'm currently using manjaro linux distro and i3wm as a window manager.
 
 ---
