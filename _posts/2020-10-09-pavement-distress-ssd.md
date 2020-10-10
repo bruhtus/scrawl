@@ -89,7 +89,7 @@ For more detailed configuration please check [develop guide by Congcong Li](http
 To make things easier, copy the format dataset you want. For example, in this project i want to use COCO dataset format. Then, i copied the `coco.py` in the path `ssd/data/datasets/` and rename it to `my_dataset.py`. After that, edit the class names for your classification class. In this project, the class i'm gonna use is alligator crack, longitudinal crack, transverse crack, and pothole. Also, don't forget to change the class `COCODataset` to `MyDataset`.
 
 The next step is to add those configuration to `__init__.py` in ssd/data/datasets/. For example:
-```
+```python
 from .my_dataset import MyDataset
 
 _DATASETS = {
@@ -100,7 +100,7 @@ _DATASETS = {
 ```
 
 Another next step is to add the path of your datasets and anotations to the `path_catlog.py` in `ssd/config/`. For example:
-```
+```python
 import os
 
 class DatasetCatalog:
@@ -139,7 +139,7 @@ class DatasetCatalog:
 ```
 
 And finally, for the `*.yaml` file for configuration i copied `vgg_ssd512_coco_trainval35k.yaml` in `configs` folder and rename it to `config.yaml`. What i changed from that file was the train and test (or more like validation) like in `path_catlog.py`, the batch size, and num_classes. I changed batch size because my laptop gpu only capable of 4 batch size. Here's an example:
-```
+```python
 Model:
     num_classes: 5 #the __background__ counted
     ...
@@ -157,7 +157,7 @@ You don't need to create folder `ssd_custom_coco_format`, when the training begi
 
 ### Validation Configuration
 First of all, copy `coco` folder in `ssd/data/datasets/evaluation/` and rename it to `my_dataset`. Rename the `def coco_evaluation` to `def my_dataset_evaluation` in file `__init__.py`. After that, add folder `my_dataset` to file `__init__.py` in `ssd/data/datasets/evaluation/`. For example:
-```
+```python
 from ssd.data.datasets import VOCDataset, COCODataset, MyDataset
 ...
 from .my_dataset import my_dataset_evaluation
