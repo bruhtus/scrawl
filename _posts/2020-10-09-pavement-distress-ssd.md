@@ -272,7 +272,7 @@ For this project, there's a problem with the counting. Because i have no idea ho
 ### A Brief Showcase and Explanation of The Results
 Below is the result:
 
-#### Video Testing 1:
+#### Video Testing 1
 
 | Class Name         | Counting Results | Actual Object |
 | -                  | -                | -             |
@@ -288,7 +288,7 @@ Below is the result:
 | Transverse Crack   | 6             | 7             | 1              | 5              |
 | Potholes           | 1             | 12            | 0              | 1              |
 
-#### Video Testing 2:
+#### Video Testing 2
 
 | Class Name         | Counting Results | Actual Object |
 | -                  | -                | -             |
@@ -304,7 +304,7 @@ Below is the result:
 | Transverse Crack   | 1             | 9             | 0              | 3              |
 | Potholes           | 0             | 10            | 0              | 2              |
 
-#### Video Testing 3:
+#### Video Testing 3
 
 | Class Name         | Counting Results | Actual Object |
 | -                  | -                | -             |
@@ -320,7 +320,7 @@ Below is the result:
 | Transverse Crack   | 1             | 14            | 0              | 0              |
 | Potholes           | 2             | 13            | 0              | 2              |
 
-#### Video Testing 4:
+#### Video Testing 4
 
 | Class Name         | Counting Results | Actual Object |
 | -                  | -                | -             |
