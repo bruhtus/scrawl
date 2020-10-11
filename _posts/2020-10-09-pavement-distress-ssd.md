@@ -266,26 +266,22 @@ Below is the counting result:
 
 | Class Name | Counting Results | Actual Object |
 | - | - | - | - |
-| | Video Testing 1 | |
-| --- | --- | --- | --- |
+| | **Video Testing 1** | |
 | Alligator Crack | 2 | 3 |
 | Longitudinal Crack | 4 | 29 |
 | Transverse Crack | 8 | 11 |
 | Potholes | 1 | 2 |
-| Video Testing 2 | | |
-| - | - | - | - |
+| | **Video Testing 2** | |
 | Alligator Crack | 14 | 8 |
 | Longitudinal Crack | 5 | 6 |
 | Transverse Crack | 1 | 4 |
 | Potholes | 0 | 2 |
-| Video Testing 3 | | |
-| - | - | - | - |
+| | **Video Testing 3** | |
 | Alligator Crack | 21 | 8 |
 | Longitudinal Crack | 7 | 15 |
 | Transverse Crack | 1 | 1 |
 | Potholes | 2 | 4 |
-| Video Testing 4 | | |
-| - | - | - | - |
+| | **Video Testing 4** | |
 | Alligator Crack | 23 | 22 |
 | Longitudinal Crack | 13 | 46 |
 | Transverse Crack | 4 | 12 |
