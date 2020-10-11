@@ -6,6 +6,10 @@ categories: [Deep Learning]
 image: images/pavement-distress-ssd/logo.jpg
 title: Pavement Distress Detector Using Single Shot Detector (SSD)
 ---
+## Before We Start, Here's a Diagram Process of This Project
+
+![]({{site.baseurl}}/images/pavement-distress-ssd/diagram-process.png)<br>
+
 ## A Brief Explanation About Single Shot Detector (SSD)
 
 Single shot detector is a deep learning method presented by Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian Szegedy, Scott Reed4, Cheng-Yang Fu, Alexander C. Berg in their research paper [SSD: Single Shot Multibox Detector](https://arxiv.org/abs/1512.02325). There are 2 commonly used SSD model, that is, SSD300 and SSD512.
@@ -172,67 +176,109 @@ def evaluate(dataset, predictions, output_dir, **kwargs):
 
 ## Training Preparation
 
-> This is a quotation
+Before training the model, we need to do some preparation. There're two steps in this process, frame extraction and labeling. Without further ado, let's get started.
 
-{% include alert.html text="You can include alert boxes" %}
+### Frame Extraction
+In this process, i used python library `opencv` to extract some frame. Here's the script:
+```python
+import cv2
+import time
+from fire import Fire
+from tqdm import tqdm
 
-...and...
+def main(video_file, path_save, speed): # the lower the speed the fastest the frame_rates, speed = 0 (pause)
+    vidcap = cv2.VideoCapture(video_file)
+    current_frame = 0 
+    speed_frame = speed
 
-{% include info.html text="You can include info boxes" %}
+    while (vidcap.isOpened()): 
+        success, frame = vidcap.read() # success = retrival value for frame 
+        length = int(vidcap.get(cv2.CAP_PROP_FRAME_COUNT)) 
+        print(f'Current Frame: {current_frame}/{length}')
+        current_frame += 1 
+
+        if success == True:
+            cv2.imshow('Video', frame)
+            if cv2.waitKey(speed) & 0xFF == ord('s'): # press s to save the frame
+                cv2.imwrite(f"{path_save}/frame_{current_frame}.jpg", frame)
+
+            elif cv2.waitKey(speed) & 0xFF == ord('q'): # press q to quit
+                break
+
+            elif cv2.waitKey(speed) & 0xFF == ord('w'): # play/pause
+                if speed != 0:
+                    speed = 0
+                elif speed == 0:
+                    speed = speed_frame
+
+        else:
+            vidcap.release()
+            cv2.destroyAllWindows()
+
+if __name__ == '__main__':
+    Fire(main)
+```
+Every time we press `s`, it's gonna take the current frame at that time. For the speed, i usually go for 25 but if you want slower you could change it to 10 or lower (as long as it's not 0, please).
+
+### Labeling
+For the labeling i use labelme, you could check the tutorial [here](https://www.dlology.com/blog/how-to-create-custom-coco-data-set-for-instance-segmentation/) and to change labelme format to coco dataset format [here](https://github.com/Tony607/labelme2coco). There's nothing much to explain about labeling, you just give box to an object and save with the label you want. So, let's move on.
 
 ## Here We Go, It's Training Time!
 
-![]({{ site.baseurl }}/images/logo.png "fast.ai's logo")
+For the training process i use google colaboratory (how to use google colaboratory is beyond this post, sorry) but you could also use other services such as [paperspace](https://www.paperspace.com/?utm_expid=.XZhCPCNrQCuE1jH9t8bIgg.0&utm_referrer=). Here's an example of command line if you use you local machine or cloud services: <br>
+Local: <br>
+```shell
+python train.py --config-file configs/config.yaml
+```
+Cloud: <br>
+```
+!python train.py --config-file configs/config.yaml
+```
+Basically there's no difference so i think it's not that difficult, good luck.
+
+### Loss Function Graph
+As the training begin, please don't forget to check the loss function. The closer the loss function to zero the better but be carefull so that it doesn't overfitting (a model memorized the training data and have difficulty predicting the testing data). Here's the unscientific tips from me, stop the training process if you don't see any improvement in loss function. For example, if the loss function stuck at 0.9 - 0.5 for quite some time then you should stop the process. Here's my loss function graph: <br>
+![]({{site.baseurl}}/images/pavement-distress-ssd/loss-function-graph.jpg)<br>
+Ok, next.
 
 ## Testing Preparation
 
-You can format text and code per usual 
-
-General preformatted text:
-
-    # Do a thing
-    do_thing()
-
-Python code and output:
-
-```python
-# Prints '2'
-print(1+1)
-```
-
-    2
-
-Formatting text as shell commands:
-
-```shell
-echo "hello world"
-./some_script.sh --option "value"
-wget https://example.com/cat_photo1.png
-```
-
-Formatting text as YAML:
-
-```yaml
-key: value
-- another_key: "another value"
-```
-
+Before testing the model, there're a few things we need to do:
+1. Copy or move video you want to use into folder `input`.
+2. Copy or move configuration file (*.yaml) into folder `configs`.
+3. Copy or move folder that has training result into folder `outputs` (in this project the folder name is `ssd_custom_coco_format`). The folder name must be the same as in configuration file `OUTPUT_DIR`.
+4. If every file and folder in the right places, then let's move on.
 
 ## Go Get Them (The Pavement Distresses)! It's Testing Time!
 
-| Column 1 | Column 2 |
-|-|-|
-| A thing | Another thing |
+For this project, there's a problem with the counting. Because i have no idea how to implement tracking so i made the counting in the iteration frame (detection at every frame, which is insane) and that's makes the total counting more than the actual object. To fix this problem (kind of), i do the counting for every 20 frames. The reason was because at every 20 frames, the object detected was closer to the total of actual object than every 10, 15, 25, and 30 frames. So, for the evaluation i'm gonna evaluate the detection result every 20 frames. Thanks.
 
-
-## A Brief Showcase and Explanation of The Results
-
-{% twitter https://twitter.com/jakevdp/status/1204765621767901185?s=20 %}
-
+### A Brief Showcase and Explanation of The Results
+Below is the counting result: <br>
+| Video | Class Name | Counting Results | Actual Object |
+| - | - | - | - |
+| Video Testing 1 | Alligator Crack | 2 | 3 |
+|  | Longitudinal Crack | 4 | 29 |
+|  | Transverse Crack | 8 | 11 |
+|  | Potholes | 1 | 2 |
+| Video Testing 2 | Alligator Crack | 14 | 8 |
+|  | Longitudinal Crack | 5 | 6 |
+|  | Transverse Crack | 1 | 4 |
+|  | Potholes | 0 | 2 |
+| Video Testing 3 | Alligator Crack | 21 | 8 |
+|  | Longitudinal Crack | 7 | 15 |
+|  | Transverse Crack | 1 | 1 |
+|  | Potholes | 2 | 4 |
+| Video Testing 4 | Alligator Crack | 23 | 22 |
+|  | Longitudinal Crack | 13 | 46 |
+|  | Transverse Crack | 4 | 12 |
+|  | Potholes | 5 | 22 |
 
 ## Future Suggestion
 
 
+
+## Side Notes
 
 [^1]: This is the footnote.
 
