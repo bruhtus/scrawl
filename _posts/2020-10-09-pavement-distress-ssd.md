@@ -65,7 +65,7 @@ After feature extraction process in base network, the next layers is to change l
 With atrous convolution we can expand area of observation for feature extraction while maintaning the amount of parameters fewer than traditional convolution operation.
 
 #### Extra Feature Layers
-Extra feature layers is a prediction layers. In this layer, the model predict the object using default box. Default box is a box with various aspect ratio in every location of feature maps with different size. You can see an example of default box below (from SSD research paper): <br>
+Extra feature layers is a prediction layers. In this layer, the model predict the object using default box. Default box is a box with various aspect ratio in every location of feature maps with different size. You can see an example of default box below [^1] <br>
 ![]({{site.baseurl}}/images/pavement-distress-ssd/default-box.png)
 
 In the last layer is a collection of default boxes which closer to ground truth box with confidence score from that default boxes.
@@ -222,6 +222,15 @@ if __name__ == '__main__':
 ```
 Every time we press `s`, it's gonna take the current frame at that time. For the speed, i usually go for 25 but if you want slower you could change it to 10 or lower (as long as it's not 0, please).
 
+After the extraction process, i have 652 images/frames for training process. The 652 images/frames have this proportion (There're a few object in one frame):
+
+| Pavement Distress  | Object |
+|--------------------|--------|
+| Alligator Crack    | 367    |
+| Longitudinal Crack | 951    |
+| Transverse Crack   | 243    |
+| Potholes           | 161    |
+
 ### Labeling
 For the labeling i use labelme, you could check the tutorial [here](https://www.dlology.com/blog/how-to-create-custom-coco-data-set-for-instance-segmentation/) and to change labelme format to coco dataset format [here](https://github.com/Tony607/labelme2coco). There's nothing much to explain about labeling, you just give box to an object and save with the label you want. So, let's move on.
 
@@ -242,8 +251,7 @@ Basically there's no difference so i think it's not that difficult, good luck.
 
 ### Loss Function Graph
 As the training begin, please don't forget to check the loss function. The closer the loss function to zero the better but be carefull so that it doesn't overfitting (a model memorized the training data and have difficulty predicting the testing data). Here's the unscientific tips from me, stop the training process if you don't see any improvement in loss function. For example, if the loss function stuck at 0.9 - 0.5 for quite some time then you should stop the process. Here's my loss function graph: <br>
-![]({{site.baseurl}}/images/pavement-distress-ssd/loss-function-graph.jpg)<br>
-Ok, next.
+![]({{site.baseurl}}/images/pavement-distress-ssd/loss-function-graph.jpg)
 
 ---
 
@@ -262,38 +270,109 @@ Before testing the model, there're a few things we need to do:
 For this project, there's a problem with the counting. Because i have no idea how to implement tracking so i made the counting in the iteration frame (detection at every frame, which is insane) and that's makes the total counting more than the actual object. To fix this problem (kind of), i do the counting for every 20 frames. The reason was because at every 20 frames, the object detected was closer to the total of actual object than every 10, 15, 25, and 30 frames. So, for the evaluation i'm gonna evaluate the detection result every 20 frames. Thanks.
 
 ### A Brief Showcase and Explanation of The Results
-Below is the counting result:
+Below is the result:
 
-| Class Name | Counting Results | Actual Object |
-| - | - | - | - |
-| | **Video Testing 1** | |
-| Alligator Crack | 2 | 3 |
-| Longitudinal Crack | 4 | 29 |
-| Transverse Crack | 8 | 11 |
-| Potholes | 1 | 2 |
-| | **Video Testing 2** | |
-| Alligator Crack | 14 | 8 |
-| Longitudinal Crack | 5 | 6 |
-| Transverse Crack | 1 | 4 |
-| Potholes | 0 | 2 |
-| | **Video Testing 3** | |
-| Alligator Crack | 21 | 8 |
-| Longitudinal Crack | 7 | 15 |
-| Transverse Crack | 1 | 1 |
-| Potholes | 2 | 4 |
-| | **Video Testing 4** | |
-| Alligator Crack | 23 | 22 |
-| Longitudinal Crack | 13 | 46 |
-| Transverse Crack | 4 | 12 |
-| Potholes | 5 | 22 |
+#### Video Testing 1:
+
+| Class Name         | Counting Results | Actual Object |
+| -                  | -                | -             |
+| Alligator Crack    | 2                | 3             |
+| Longitudinal Crack | 4                | 29            |
+| Transverse Crack   | 8                | 11            |
+| Potholes           | 1                | 2             |
+
+| Class Name         | True Positive | True Negative | False Positive | False Negative |
+| -                  | -             | -             | -              | -              |
+| Alligator Crack    | 2             | 11            | 0              | 1              |
+| Longitudinal Crack | 4             | 9             | 1              | 25             |
+| Transverse Crack   | 6             | 7             | 1              | 5              |
+| Potholes           | 1             | 12            | 0              | 1              |
+
+#### Video Testing 2:
+
+| Class Name         | Counting Results | Actual Object |
+| -                  | -                | -             |
+| Alligator Crack    | 14               | 8             |
+| Longitudinal Crack | 5                | 6             |
+| Transverse Crack   | 1                | 4             |
+| Potholes           | 0                | 2             |
+
+| Class Name         | True Positive | True Negative | False Positive | False Negative |
+| -                  | -             | -             | -              | -              |
+| Alligator Crack    | 7             | 3             | 7              | 1              |
+| Longitudinal Crack | 2             | 8             | 2              | 4              |
+| Transverse Crack   | 1             | 9             | 0              | 3              |
+| Potholes           | 0             | 10            | 0              | 2              |
+
+#### Video Testing 3:
+
+| Class Name         | Counting Results | Actual Object |
+| -                  | -                | -             |
+| Alligator Crack    | 21               | 8             |
+| Longitudinal Crack | 7                | 15            |
+| Transverse Crack   | 1                | 1             |
+| Potholes           | 2                | 4             |
+
+| Class Name         | True Positive | True Negative | False Positive | False Negative |
+| -                  | -             | -             | -              | -              |
+| Alligator Crack    | 8             | 7             | 10             | 0              |
+| Longitudinal Crack | 4             | 11            | 2              | 11             |
+| Transverse Crack   | 1             | 14            | 0              | 0              |
+| Potholes           | 2             | 13            | 0              | 2              |
+
+#### Video Testing 4:
+
+| Class Name         | Counting Results | Actual Object |
+| -                  | -                | -             |
+| Alligator Crack    | 23               | 22            |
+| Longitudinal Crack | 13               | 46            |
+| Transverse Crack   | 4                | 12            |
+| Potholes           | 5                | 22            |
+
+| Class Name         | True Positive | True Negative | False Positive | False Negative |
+| -                  | -             | -             | -              | -              |
+| Alligator Crack    | 10            | 14            | 8              | 12             |
+| Longitudinal Crack | 8             | 16            | 3              | 38             |
+| Transverse Crack   | 2             | 22            | 2              | 10             |
+| Potholes           | 4             | 20            | 0              | 18             |
+
+From the counting results above we can see that the model struggle to detect longitudinal crack and have a lot of alligator crack detections (detected two times or more). There're 2 reasons for that, the first is that there's not enough small-sized longitudinal crack in training dataset and the second is the frame field-of-view too narrow so that a lot of alligator crack devided into different frames and detected multiple times. Here's an example of that problem: <br>
+- Undetected Small Longitudinal Crack:
+![]({{site.baseurl}}/images/pavement-distress-ssd/undetected-small-crack.jpg)
+
+- Multiple Detection of Alligator Crack:
+![]({{site.baseurl}}/images/pavement-distress-ssd/too-much-detection.jpg)
+
+And then, we have the precision and recall of the model as below:
+
+| Video           | Precision | Recall | Accuracy |
+| -               | -         | -      | -        |
+| Video Testing 1 | 91.43%    | 46.25% | 60.69%   |
+| Video Testing 2 | 50%       | 36.45% | 69.58%   |
+| Video Testing 3 | 77.78%    | 69.17% | 75.45%   |
+| Video Testing 4 | 69.57%    | 24.42% | 53.81%   |
+
+>At the time of making this post, i'm still not sure whether to use accuracy or f1-score so for now i'm gonna use accuracy.
+
+The difference between video testing 1 to 4 is the total of small-sized pavement distress and video testing 3 has the least total of small-sized pavement distress of all video. So that means, for this trained weight, we obtain the best accuracy when we have the least small-sized pavement distress.
 
 ---
 
 ## Future Suggestion
 
+By no means this is not the best implementation of SSD for pavement distress detection. I have only a few training dataset and a few testing dataset. So you could say what i did here is a minimum requirement that result in minimum performance. You can improve this project quite a lot.
 
+If you want to improve this project, you can start by these things:
+1. Use a lot of training data and testing data.
+2. Use a camera that has wide angle lens (because 50mm lens is not wide enough).
+
+---
 
 ## Side Notes
 
-[^1]: This is the footnote.
+This is not really important, it's more like a momento for me. So, in the undergraduate thesis defence(?) there's this examiner who has a misconception about testing process and validation process. That examiner switch the possition of testing process as validation process and validation process as testing process, so that really confusing and we have quite an argument there. I even ask in [stackexchange](https://stats.stackexchange.com/q/484584) if i'm wrong or not and it turns out that examiner has switch the term for testing and validation. Now i feel stupid for having an argument with that examiner.
 
+---
+
+## Footnotes
+[^1]: [SSD: Single Shot Multibox Detector](https://arxiv.org/abs/1512.02325).
