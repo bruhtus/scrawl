@@ -274,12 +274,12 @@ Below is the result:
 
 #### Video Testing 1
 
-| Class Name         | Counting Results | Actual Object |
-| -                  | -                | -             |
-| Alligator Crack    | 2                | 3             |
-| Longitudinal Crack | 4                | 29            |
-| Transverse Crack   | 8                | 11            |
-| Potholes           | 1                | 2             |
+| Class Name         | Counting Results | Actual Objects |
+| -                  | -                | -              |
+| Alligator Crack    | 2                | 3              |
+| Longitudinal Crack | 4                | 29             |
+| Transverse Crack   | 8                | 11             |
+| Potholes           | 1                | 2              |
 
 | Class Name         | True Positive | True Negative | False Positive | False Negative |
 | -                  | -             | -             | -              | -              |
@@ -290,12 +290,12 @@ Below is the result:
 
 #### Video Testing 2
 
-| Class Name         | Counting Results | Actual Object |
-| -                  | -                | -             |
-| Alligator Crack    | 14               | 8             |
-| Longitudinal Crack | 5                | 6             |
-| Transverse Crack   | 1                | 4             |
-| Potholes           | 0                | 2             |
+| Class Name         | Counting Results | Actual Objects |
+| -                  | -                | -              |
+| Alligator Crack    | 14               | 8              |
+| Longitudinal Crack | 5                | 6              |
+| Transverse Crack   | 1                | 4              |
+| Potholes           | 0                | 2              |
 
 | Class Name         | True Positive | True Negative | False Positive | False Negative |
 | -                  | -             | -             | -              | -              |
@@ -306,12 +306,12 @@ Below is the result:
 
 #### Video Testing 3
 
-| Class Name         | Counting Results | Actual Object |
-| -                  | -                | -             |
-| Alligator Crack    | 21               | 8             |
-| Longitudinal Crack | 7                | 15            |
-| Transverse Crack   | 1                | 1             |
-| Potholes           | 2                | 4             |
+| Class Name         | Counting Results | Actual Objects |
+| -                  | -                | -              |
+| Alligator Crack    | 21               | 8              |
+| Longitudinal Crack | 7                | 15             |
+| Transverse Crack   | 1                | 1              |
+| Potholes           | 2                | 4              |
 
 | Class Name         | True Positive | True Negative | False Positive | False Negative |
 | -                  | -             | -             | -              | -              |
@@ -322,12 +322,12 @@ Below is the result:
 
 #### Video Testing 4
 
-| Class Name         | Counting Results | Actual Object |
-| -                  | -                | -             |
-| Alligator Crack    | 23               | 22            |
-| Longitudinal Crack | 13               | 46            |
-| Transverse Crack   | 4                | 12            |
-| Potholes           | 5                | 22            |
+| Class Name         | Counting Results | Actual Objects |
+| -                  | -                | -              |
+| Alligator Crack    | 23               | 22             |
+| Longitudinal Crack | 13               | 46             |
+| Transverse Crack   | 4                | 12             |
+| Potholes           | 5                | 22             |
 
 | Class Name         | True Positive | True Negative | False Positive | False Negative |
 | -                  | -             | -             | -              | -              |
