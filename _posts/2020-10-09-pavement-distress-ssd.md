@@ -174,6 +174,8 @@ def evaluate(dataset, predictions, output_dir, **kwargs):
         raise NotImplementError
 ```
 
+---
+
 ## Training Preparation
 
 Before training the model, we need to do some preparation. There're two steps in this process, frame extraction and labeling. Without further ado, let's get started.
@@ -223,6 +225,8 @@ Every time we press `s`, it's gonna take the current frame at that time. For the
 ### Labeling
 For the labeling i use labelme, you could check the tutorial [here](https://www.dlology.com/blog/how-to-create-custom-coco-data-set-for-instance-segmentation/) and to change labelme format to coco dataset format [here](https://github.com/Tony607/labelme2coco). There's nothing much to explain about labeling, you just give box to an object and save with the label you want. So, let's move on.
 
+---
+
 ## Here We Go, It's Training Time!
 
 For the training process i use google colaboratory (how to use google colaboratory is beyond this post, sorry) but you could also use other services such as [paperspace](https://www.paperspace.com/?utm_expid=.XZhCPCNrQCuE1jH9t8bIgg.0&utm_referrer=). Here's an example of command line if you use you local machine or cloud services: <br>
@@ -241,6 +245,8 @@ As the training begin, please don't forget to check the loss function. The close
 ![]({{site.baseurl}}/images/pavement-distress-ssd/loss-function-graph.jpg)<br>
 Ok, next.
 
+---
+
 ## Testing Preparation
 
 Before testing the model, there're a few things we need to do:
@@ -249,6 +255,8 @@ Before testing the model, there're a few things we need to do:
 3. Copy or move folder that has training result into folder `outputs` (in this project the folder name is `ssd_custom_coco_format`). The folder name must be the same as in configuration file `OUTPUT_DIR`.
 4. If every file and folder in the right places, then let's move on.
 
+---
+
 ## Go Get Them (The Pavement Distresses)! It's Testing Time!
 
 For this project, there's a problem with the counting. Because i have no idea how to implement tracking so i made the counting in the iteration frame (detection at every frame, which is insane) and that's makes the total counting more than the actual object. To fix this problem (kind of), i do the counting for every 20 frames. The reason was because at every 20 frames, the object detected was closer to the total of actual object than every 10, 15, 25, and 30 frames. So, for the evaluation i'm gonna evaluate the detection result every 20 frames. Thanks.
@@ -256,7 +264,7 @@ For this project, there's a problem with the counting. Because i have no idea ho
 ### A Brief Showcase and Explanation of The Results
 Below is the counting result: <br>
 | Video | Class Name | Counting Results | Actual Object |
-| - | - | - | - |
+| --- | --- | --- | --- |
 | Video Testing 1 | Alligator Crack | 2 | 3 |
 |   | Longitudinal Crack | 4 | 29 |
 |   | Transverse Crack | 8 | 11 |
@@ -273,6 +281,8 @@ Below is the counting result: <br>
 |   | Longitudinal Crack | 13 | 46 |
 |   | Transverse Crack | 4 | 12 |
 |   | Potholes | 5 | 22 |
+
+---
 
 ## Future Suggestion
 
