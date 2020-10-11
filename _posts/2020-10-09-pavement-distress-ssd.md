@@ -262,10 +262,28 @@ Before testing the model, there're a few things we need to do:
 For this project, there's a problem with the counting. Because i have no idea how to implement tracking so i made the counting in the iteration frame (detection at every frame, which is insane) and that's makes the total counting more than the actual object. To fix this problem (kind of), i do the counting for every 20 frames. The reason was because at every 20 frames, the object detected was closer to the total of actual object than every 10, 15, 25, and 30 frames. So, for the evaluation i'm gonna evaluate the detection result every 20 frames. Thanks.
 
 ### A Brief Showcase and Explanation of The Results
-Below is the counting result: <br>
-| Column 1 | Column 2 |
-|-|-|
-| A thing | Another thing |
+Below is the counting result:
+
+| Video | Class Name | Counting Results | Actual Object |
+| - | - | - | - |
+| Video Testing 1 | Alligator Crack | 2 | 3 |
+| Video Testing 1 | Longitudinal Crack | 4 | 29 |
+| Video Testing 1 | Transverse Crack | 8 | 11 |
+| Video Testing 1 | Potholes | 1 | 2 |
+| Video Testing 2 | Alligator Crack | 14 | 8 |
+| Video Testing 2 | Longitudinal Crack | 5 | 6 |
+| Video Testing 2 | Transverse Crack | 1 | 4 |
+| Video Testing 2 | Potholes | 0 | 2 |
+| Video Testing 3 | Alligator Crack | 21 | 8 |
+| Video Testing 3 | Longitudinal Crack | 7 | 15 |
+| Video Testing 3 | Transverse Crack | 1 | 1 |
+| Video Testing 3 | Potholes | 2 | 4 |
+| Video Testing 4 | Alligator Crack | 23 | 22 |
+| Video Testing 4 | Longitudinal Crack | 13 | 46 |
+| Video Testing 4 | Transverse Crack | 4 | 12 |
+| Video Testing 4 | Potholes | 5 | 22 |
+
+---
 
 ## Future Suggestion
 
