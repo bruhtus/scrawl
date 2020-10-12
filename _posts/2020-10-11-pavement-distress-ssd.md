@@ -370,7 +370,7 @@ If you want to improve this project, you can start from these things:
 
 ## Side Notes
 
-This is not really important, it's more like a momento for me. So, in the undergraduate thesis defence(?) there's this examiner who has a misconception about testing process and validation process. That examiner switch the possition of testing process as validation process and validation process as testing process, so that really confusing and we have quite an argument there. I even ask in [stackexchange](https://stats.stackexchange.com/q/484584) if i'm wrong or not and it turns out that examiner has switch the term for testing and validation. Now i feel stupid for having an argument with that examiner.
+This is not really important, it's more like a momento for me. In the undergraduate thesis defence(?) there's this examiner who has a misconception about testing process and validation process. That examiner switch the possition of testing process as validation process and validation process as testing process, so that really confusing and we have quite an argument there. I even ask in [stackexchange](https://stats.stackexchange.com/q/484584) if i'm wrong or not and it turns out that examiner has switch the term for testing and validation. Now i feel stupid for having an argument with that examiner.
 
 ---
 
