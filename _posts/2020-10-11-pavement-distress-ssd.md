@@ -362,7 +362,7 @@ The difference between video testing 1 to 4 is the total of small-sized pavement
 
 By no means this is not the best implementation of SSD for pavement distress detection. I have only a few training dataset and a few testing dataset. So you could say what i did here is a minimum requirement that result in minimum performance. You can improve this project quite a lot.
 
-If you want to improve this project, you can start by these things:
+If you want to improve this project, you can start from these things:
 1. Use a lot of training data and testing data.
 2. Use a camera that has wide angle lens (because 50mm lens is not wide enough).
 
