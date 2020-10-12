@@ -15,7 +15,7 @@ I'm currently using manjaro linux distro and i3wm as a window manager.
 
 ## Tiny CV
 ### Current:
-Open for hire
+Available for hire
 
 ### Education:
 Bachelor of Mathematics in Mathematics Department. Major in Computer Science. Institut Teknologi Sepuluh Nopember.
