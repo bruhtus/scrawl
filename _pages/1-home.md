@@ -1,1 +1,3 @@
-[Home](https://bruhtus.github.io)
+---
+title: [Home](https://bruhtus.github.io)
+---
