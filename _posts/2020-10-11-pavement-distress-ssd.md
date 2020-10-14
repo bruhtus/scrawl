@@ -18,7 +18,7 @@ Here's a brief explanation about SSD300 and SSD512:
 - SSD300: More fast.
 - SSD512: More accurate.
 
-Long story short, SSD300 is about speed. If you need speed than you should probably using SSD300 (i haven't tried the mobilenet as base network at the times to type this, so at this time knowledge SSD300 is faster than SSD512). Meanwhile, SSD512 is about accuracy. It doesn't really show up in image processing but in video processing, i notice that there's a frame rate drop while doing live object detection. To be fair, SSD300 has frame rate drop as well but it's still usable (around 7-10 frame per second) but SSD300 has frame rate around 3-5 frame per second. 
+Long story short, SSD300 is about speed. If you need speed than you should probably use SSD300 (i haven't tried the mobilenet as base network at the time to type this, so at this time knowledge SSD300 is faster than SSD512). Meanwhile, SSD512 is about accuracy. It doesn't really show up in image processing but in video processing, i notice that there's a frame rate drop while doing live object detection. To be fair, SSD300 has frame rate drop as well but it's still usable (around 7-10 frame per second) but SSD512 has frame rate around 3-5 frame per second. 
 Who want to watch a video with 3 fps?? If you're that kind of person then, go ahead. You do you mate.
 
 For the record, at that time when I try live detection, i use opencv to display live detection video. i'm not sure whether it is opencv fault or the model fault because if I save the video result, the video itself has no frame rate drop. It's weird but it happens, so let's go on with saving the video and forget about live detection (for now, until i find some way to do live detection).
