@@ -1,4 +1,4 @@
 ---
 title: Home
-permalink: bruhtus.github.io
+permalink: https://bruhtus.github.io
 ---
