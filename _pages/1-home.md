@@ -1,3 +1,5 @@
 ---
-title: [Home](https://bruhtus.github.io)
+title: Home
+layout: external
+external_url: https://bruhtus.github.io
 ---
