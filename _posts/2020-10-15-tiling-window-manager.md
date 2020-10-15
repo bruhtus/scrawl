@@ -89,5 +89,7 @@ Cons:
 - If you open too much application then the application size gonna become smaller. (that's why use virtual desktop or workspace 1-8).
 - It's kind of hard to setting the first time. After that hard time, you can backup your previous config and use it again in other computer. Nice.
 
+---
+
 ## Footnotes
 [^1]: [Arch linux wiki (window manager)](https://wiki.archlinux.org/index.php/window_manager).
