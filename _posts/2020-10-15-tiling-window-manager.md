@@ -44,7 +44,6 @@ For setting up polybar, you need to move the default polybar config. In my case,
 [bar/mainbar-i3]
 
 monitor = {env:MONITOR:eDP-1}
-...
 ```
 
 After you're done with you polybar config, the next step is to add launch.sh. What is launch.sh? well, it's basically to launch all of our polybar bar config (that has this naming scheme `[bar/example]`). Here's an example of launch.sh in two monitor (each bar config has different monitor assigned to it):
