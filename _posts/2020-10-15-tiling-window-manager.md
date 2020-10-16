@@ -24,21 +24,27 @@ For more detailed comparision of tiling window manager, you can check [here](htt
 
 ---
 
-## i3 Window Manager
+## The Window Manager I've Tried
+
+For now (at the times of writing this post), i only have tried 2 window manager. My first window manager is qtile and my second window manager is i3. You can check below for more (not really) detailed explanation(?).
+
+### i3 Window Manager
 i3 is one of tiling type window manager, for more info you can check at [their website](https://i3wm.org/). I'm just gonna explain configuration that i've made at my [github repo](https://github.com/bruhtus/i3_config). For the record, this is my current window manager (at the time writing this post). I'm using the manjaro i3 edition.
 
 First of all, i changed the mod keybinding from super key (or some people call it windows key) to alt key. You can change the mod keybinding by change `set $mod Mod4` (super key) to `set $mod Mod1` (alt key) in config file (you can find config file in folder `.i3`). For the most part i used the default config from manjaro i3 edition but i add a few program and even changed the i3 status bar with polybar. Here's what i used in this config:
 - [pywal](https://github.com/dylanaraps/pywal): I use this for color scheme around my i3 environment (such as terminal, border color around window, etc)
-- [polybar](https://github.com/polybar/polybar): I use this to replace i3 status bar because i can place the clock and date in the middle (i have no ide how to do that in i3 status bar or even py3status).
+- [polybar](https://github.com/polybar/polybar): I use this to replace i3 status bar because i can place the clock and date in the middle (i have no ide how to do that in i3 status bar or even py3status) and it has quite a lot of customization. You can also use py3status if you want.
 - [rofi](https://github.com/davatorium/rofi): I use this as application manager instead of dmenu, because it's more convenient for me (rofi appear in the middle meanwhile dmenu appear at the top).
-- [conky](https://github.com/brndnmtthws/conky): I use this to take a glance what process curruntly taking up resources (for more detailed info i use htop).
+- [conky](https://github.com/brndnmtthws/conky): I use this to take a glance what process currently taking up resources (for more detailed info i use htop).
 - [flameshot](https://github.com/flameshot-org/flameshot): I use this to take screenshot.
 
-### Setting Up Keybinding
+#### Setting Up Keybinding
 For setting up keybinding you can use `bindsym`, for example: `bindsym $mod+q kill` for close focused or currenly active window. You can set a program to do a certain thing. For example: `set $myTerm alacritty`, every thing that used $myTerm gonna access the command via terminal alacritty. Alacritty is my current (at the time of typing this post) terminal emulator, i also have xterm as a backup terminal emulator. Example of using `$myTerm`: `bindsym $mod+e exec $myTerm -e ranger` to open ranger file manager.
 
-### Setting Up Polybar
-For setting up polybar, you need to move the default polybar config. In my case, the default config is in /usr/share/doc/polybar/ but if it's not there, you can use `locate polybar | grep config`. Make a polybar folder in `.config` folder, after that move the default polybar config into those folder (the path should be like this `.config/polybar/config`). You can change the default config to anything you want, but remember the bar name because we're gonna use the bar name to launch the polybar. The default bar name should be like this `[bar/example]`, you can change it to the name you want and please specify the monitor for the polybar. You can check you monitor name by typing `xrandr` on terminal. Here's an example how to set a monitor in polybar config: <br>
+#### Setting Up Polybar
+For setting up polybar, you need to move the default polybar config. In my case, the default config is in /usr/share/doc/polybar/ but if it's not there, you can use `locate polybar | grep config`. 
+
+First of all, make a polybar folder in `.config` folder. After that move the default polybar config into those folder (the path should be like this `.config/polybar/config`). You can change the default config to anything you want, but remember the bar name because we're gonna use the bar name to launch the polybar. The default bar name should be like this `[bar/example]`, you can change it to the name you want and please specify the monitor for the polybar. You can check you monitor name by typing `xrandr` on terminal. Here's an example how to set a monitor in polybar config: <br>
 > After i typed `xrandr` on my terminal, i got my laptop screen name `eDP-1` so i'm gonna use my laptop screen to display the polybar.
 
 ```
@@ -66,9 +72,12 @@ polybar secondbar-i3 &
 echo "bars launched..."
 ```
 
+#### Who Should Use i3?
+i3 is more 'manual' tiling window manager so it doesn't really have default layout, you need to specify where the window opened (whether the window opened on the right or below). If you want to use i3 you might want to consider that. So, who should use i3? everyone who doesn't really mind to have manually control where the window appear, that's all.
+
 ---
 
-## Qtile Window Manager
+### Qtile Window Manager
 Qtile is one of dynamic window manager that use python as basis configuration, for more info you can check at [their website](https://qtile.org/).
 
 In my [config repo](https://github.com/bruhtus/qtile_config) i usually use MonadTall layout or Max layout. MonadTall layout basically split the first two window into half vertically and then for the third and so on gonna split the right window horisontally. Max layout basically have the application automatically take up the whole screen, that's all. For more build-in layouts you can check their documentation [here](http://docs.qtile.org/en/latest/manual/ref/layouts.html?highlight=layouts).
@@ -76,6 +85,9 @@ In my [config repo](https://github.com/bruhtus/qtile_config) i usually use Monad
 I used qtile window manager first before switch to i3 because the configuration is in python but what i don't really like is how qtile treat multiple screen. When i want to switch to second monitor, it swapped the application on second monitor to first monitor (currently active monitor) and that's not what i want, i just want to switch to different screen and not have application on that screen swapped with application on my currently active screen. It was confusing and then i tried i3wm after that.
 
 The config in my repo is a basic config i've done because i don't really like the workflow of qtile. Sorry about that.
+
+#### Who Should Use Qtile?
+If you're fine with the workflow of qtile, like to have or doesn't really mind  preconfigured layout, and have experience with python then you might want to try qtile. Don't get me wrong, qtile is good as a window manager but unfortunately it doesn't meet my needs.
 
 ---
 
@@ -89,6 +101,13 @@ Pros:
 Cons:
 - If you open too much application then the application size gonna become smaller. (that's why use virtual desktop or workspace 1-8).
 - It's kind of hard to setting the first time. After that hard time, you can backup your previous config and use it again in other computer. Nice.
+
+---
+
+## To Wrap Things Up
+If you want to use keyboard-oriented navigation or you don't want to use mouse often, then you probably should try using tiling window manager. But, as i've mentioned above, it took time to learn how to configure it (and i think it's worth your time).
+
+If you're still not sure, you can try it first in virtual machine (such as virtualbox and virt-manager) and then you could copy those config file to your new installation.
 
 ---
 
