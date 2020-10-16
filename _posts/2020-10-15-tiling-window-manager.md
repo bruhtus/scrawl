@@ -31,7 +31,7 @@ First of all, i changed the mod keybinding from super key (or some people call i
 - [pywal](https://github.com/dylanaraps/pywal): I use this for color scheme around my i3 environment (such as terminal, border color around window, etc)
 - [polybar](https://github.com/polybar/polybar): I use this to replace i3 status bar because i can place the clock and date in the middle (i have no ide how to do that in i3 status bar or even py3status).
 - [rofi](https://github.com/davatorium/rofi): I use this as application manager instead of dmenu, because it's more convenient for me (rofi appear in the middle meanwhile dmenu appear at the top).
-- [conky](https://github.com/brndnmtthws/conky): I use take a glance what process curruntly taking up resources (for more detailed info i use htop).
+- [conky](https://github.com/brndnmtthws/conky): I use this to take a glance what process curruntly taking up resources (for more detailed info i use htop).
 - [flameshot](https://github.com/flameshot-org/flameshot): I use this to take screenshot.
 
 ### Setting Up Keybinding
@@ -47,7 +47,7 @@ For setting up polybar, you need to move the default polybar config. In my case,
 monitor = {env:MONITOR:eDP-1}
 ```
 
-After you're done with you polybar config, the next step is to add launch.sh. What is launch.sh? well, it's basically to launch all of our polybar bar config (that has this naming scheme `[bar/example]`). Here's an example of launch.sh in two monitor (each bar config has different monitor assigned to it):
+After you're done with your polybar config, the next step is to add launch.sh. What is launch.sh? well, it's basically to launch all of our polybar bar config (that has this naming scheme `[bar/example]`). Here's an example of launch.sh in two monitor (each bar config has different monitor assigned to it):
 
 ```
 #!/usr/bin/bash
