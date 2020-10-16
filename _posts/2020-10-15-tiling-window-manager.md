@@ -95,5 +95,7 @@ Cons:
 ## Picture of My Current i3 Config
 ![]({{site.baseurl}}/images/window-manager/example-of-i3wm.jpg)
 
+---
+
 ## Footnotes
 [^1]: [Arch linux wiki (window manager)](https://wiki.archlinux.org/index.php/window_manager).
