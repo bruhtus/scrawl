@@ -40,6 +40,7 @@ For setting up keybinding you can use `bindsym`, for example: `bindsym $mod+q ki
 ### Setting Up Polybar
 For setting up polybar, you need to move the default polybar config. In my case, the default config is in /usr/share/doc/polybar/ but if it's not there, you can use `locate polybar | grep config`. Make a polybar folder in `.config` folder, after that move the default polybar config into those folder (the path should be like this `.config/polybar/config`). You can change the default config to anything you want, but remember the bar name because we're gonna use the bar name to launch the polybar. The default bar name should be like this `[bar/example]`, you can change it to the name you want and please specify the monitor for the polybar. You can check you monitor name by typing `xrandr` on terminal. Here's an example how to set a monitor in polybar config: <br>
 > After i typed `xrandr` on my terminal, i got my laptop screen name `eDP-1` so i'm gonna use my laptop screen to display the polybar.
+
 ```
 [bar/mainbar-i3]
 
@@ -47,6 +48,7 @@ monitor = {env:MONITOR:eDP-1}
 ```
 
 After you're done with you polybar config, the next step is to add launch.sh. What is launch.sh? well, it's basically to launch all of our polybar bar config (that has this naming scheme `[bar/example]`). Here's an example of launch.sh in two monitor (each bar config has different monitor assigned to it):
+
 ```
 #!/usr/bin/bash
 
