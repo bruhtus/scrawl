@@ -111,8 +111,12 @@ If you're still not sure, you can try it first in virtual machine (such as virtu
 
 ---
 
-## Picture of My Current i3 Config
+## Example of i3 Window Manager
+- Moderate use: <br>
 ![]({{site.baseurl}}/images/window-manager/example-of-i3wm.jpg)
+
+- Too much window in one workspace can be bad: <br>
+![]({{site.baseurl}}/images/window-manager/too-much-window.jpg)
 
 ---
 
