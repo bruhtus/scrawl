@@ -49,7 +49,7 @@ The base network used in this project is Visual Geometry Group (VGG). I chose VG
 And here's a VGG16 after truncated from classification layers: <br>
 ![]({{site.baseurl}}/images/pavement-distress-ssd/truncated-vgg16.jpg)
 
-If you want to calculate the result from max polling, you can use this equation: <br>
+If you want to calculate the result from max polling, you can use this equation [^2]: <br>
 ![]({{site.baseurl}}/images/pavement-distress-ssd/max-pooling-equation.png)<br>
 Information:
 1. kernel_size, stride, padding, and dilation can be 1 integer (in this case, the value for height and width are the same) or 2 integer (in this case, the first integer is height and the second integer is width).
@@ -376,3 +376,4 @@ This is not really important, it's more like a momento for me. In the undergradu
 
 ## Footnotes
 [^1]: [SSD: Single Shot Multibox Detector](https://arxiv.org/abs/1512.02325).
+[^2]: [Pytorch maxpool2d](https://pytorch.org/docs/stable/generated/torch.nn.MaxPool2d.html)
