@@ -39,7 +39,7 @@ First of all, i changed the mod keybinding from super key (or some people call i
 - [flameshot](https://github.com/flameshot-org/flameshot): I use this to take screenshot.
 
 #### Setting Up Keybinding
-For setting up keybinding you can use `bindsym`, for example: `bindsym $mod+q kill` for close focused or currenly active window. You can set a program to do a certain thing. For example: `set $myTerm alacritty`, every thing that used $myTerm gonna access the command via terminal alacritty. Alacritty is my current (at the time of typing this post) terminal emulator, i also have xterm as a backup terminal emulator. Example of using `$myTerm`: `bindsym $mod+e exec $myTerm -e ranger` to open ranger file manager.
+For setting up keybinding you can use `bindsym`, for example: `bindsym $mod+q kill` for close focused or currenly active window. Other than setting up keybindings, you can also set a program to do a certain thing, for example: `set $myTerm alacritty`, every thing that used $myTerm gonna access the command via terminal alacritty. Alacritty is my current (at the time of typing this post) terminal emulator, i also have xterm as a backup terminal emulator. Example of using `$myTerm`: `bindsym $mod+e exec $myTerm -e ranger` to open ranger file manager.
 
 #### Setting Up Polybar
 For setting up polybar, you need to move the default polybar config. In my case, the default config is in /usr/share/doc/polybar/ but if it's not there, you can use `locate polybar | grep config`. 
@@ -99,15 +99,15 @@ Pros:
 > Surprise, you haven't close me yet so i'm gonna take up your computer resources.
 
 Cons:
-- If you open too much application then the application size gonna become smaller. (that's why use virtual desktop or workspace 1-8).
-- It's kind of hard to setting the first time. After that hard time, you can backup your previous config and use it again in other computer. Nice.
+- If you open too much application then the application size gonna become smaller. (that's why use virtual desktop or workspace 1 to 8).
+- It's kind of hard to setting for first time. After that hard time, you can backup your previous config and use it again in other computer. Nice.
 
 ---
 
 ## To Wrap Things Up
 If you want to use keyboard-oriented navigation or you don't want to use mouse often, then you probably should try using tiling window manager. But, as i've mentioned above, it took time to learn how to configure it (and i think it's worth your time).
 
-If you're still not sure, you can try it first in virtual machine (such as virtualbox and virt-manager) and then you could copy those config file to your new installation.
+If you're still not sure, you can try it first in virtual machine (such as virtualbox or virt-manager) and then you could copy those config file to your new installation.
 
 ---
 
