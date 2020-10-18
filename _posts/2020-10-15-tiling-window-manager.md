@@ -72,8 +72,8 @@ polybar secondbar-i3 &
 echo "bars launched..."
 ```
 
-#### Who Should Use i3?
-i3 is more 'manual' tiling window manager so it doesn't really have default layout, you need to specify where the window opened (whether the window opened on the right or below). If you want to use i3 you might want to consider that. So, who should use i3? everyone who doesn't really mind to have manually control where the window appear, that's all.
+#### Who Should Try or Use i3?
+i3 is a 'manual' tiling window manager so it doesn't really have default layout which is different from dynamic 'tiling' window manager, you need to specify where the window opened (whether the window opened on the right or below). If you want to use i3 you might want to consider that. So, who should try or use i3? everyone who wants a tiling window manager and  doesn't really mind to have manually control where the window appear, that's all.
 
 ---
 
@@ -86,8 +86,8 @@ I used qtile window manager first before switch to i3 because the configuration 
 
 The config in my repo is a basic config i've done because i don't really like the workflow of qtile. Sorry about that.
 
-#### Who Should Use Qtile?
-If you're fine with the workflow of qtile, like to have or doesn't really mind  preconfigured layout, and have experience with python then you might want to try qtile. Don't get me wrong, qtile is good as a window manager but unfortunately it doesn't meet my needs.
+#### Who Should Try or Use Qtile?
+If you're fine with the workflow of qtile, wants to try or use dynamic window manager, like to have or doesn't really mind  preconfigured layout, and have experience with python then you might want to try qtile. Don't get me wrong, qtile is good as a window manager but unfortunately it doesn't meet my needs.
 
 ---
 
