@@ -2,7 +2,7 @@
 toc: true
 layout: post
 description: Efficient way to manage your opened window.
-categories: [Window Manager]
+categories: [Window Manager, English]
 image: images/window-manager/i3wm-logo.png
 title: Tiling Window Manager For Efficiency
 ---

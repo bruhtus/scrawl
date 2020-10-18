@@ -2,7 +2,7 @@
 toc: true
 layout: post
 description: Detect pavement distress using single shot detector (SSD) model.
-categories: [Deep Learning]
+categories: [Deep Learning, English]
 image: images/pavement-distress-ssd/logo.jpg
 title: Pavement Distress Detector Using Single Shot Detector (SSD)
 ---
