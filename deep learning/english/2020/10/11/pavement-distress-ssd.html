@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Pavement Distress Detector Using Single Shot Detector (SSD) | Bruhtus’ Scrawl</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Pavement Distress Detector Using Single Shot Detector (SSD)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Detect pavement distress using single shot detector (SSD) model." />
+<meta property="og:description" content="Detect pavement distress using single shot detector (SSD) model." />
+<link rel="canonical" href="https://bruhtus.github.io/scrawl/deep%20learning/english/2020/10/11/pavement-distress-ssd.html" />
+<meta property="og:url" content="https://bruhtus.github.io/scrawl/deep%20learning/english/2020/10/11/pavement-distress-ssd.html" />
+<meta property="og:site_name" content="Bruhtus’ Scrawl" />
+<meta property="og:image" content="https://bruhtus.github.io/scrawl/images/pavement-distress-ssd/logo.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-11T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"Detect pavement distress using single shot detector (SSD) model.","url":"https://bruhtus.github.io/scrawl/deep%20learning/english/2020/10/11/pavement-distress-ssd.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://bruhtus.github.io/scrawl/deep%20learning/english/2020/10/11/pavement-distress-ssd.html"},"headline":"Pavement Distress Detector Using Single Shot Detector (SSD)","dateModified":"2020-10-11T00:00:00-05:00","datePublished":"2020-10-11T00:00:00-05:00","image":"https://bruhtus.github.io/scrawl/images/pavement-distress-ssd/logo.jpg","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/scrawl/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://bruhtus.github.io/scrawl/feed.xml" title="Bruhtus' Scrawl" /><!-- the google_analytics_id gets auto inserted from the config file -->
+
+
+
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-57531313-5','auto');ga('require','displayfeatures');ga('send','pageview');</script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/scrawl/images/favicon.ico">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/scrawl/">Bruhtus&#39; Scrawl</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/scrawl/_pages/1home.html">Home</a><a class="page-link" href="/scrawl/categories/">Contents</a><a class="page-link" href="/scrawl/about/">About Me</a><a class="page-link" href="/scrawl/search/">Search</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Pavement Distress Detector Using Single Shot Detector (SSD)</h1><p class="page-description">Detect pavement distress using single shot detector (SSD) model.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-10-11T00:00:00-05:00" itemprop="datePublished">
+        Oct 11, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      15 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/scrawl/categories/#Deep Learning">Deep Learning</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/scrawl/categories/#English">English</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#before-we-start-heres-a-diagram-process-of-this-project">Before We Start, Here’s a Diagram Process of This Project</a></li>
+<li class="toc-entry toc-h2"><a href="#a-brief-explanation-about-single-shot-detector-ssd">A Brief Explanation About Single Shot Detector (SSD)</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#single-shot-detector-ssd-architecture-thats-used-in-this-project">Single Shot Detector (SSD) Architecture That’s Used in This Project</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#base-network">Base Network</a></li>
+<li class="toc-entry toc-h4"><a href="#layer-6-and-layer-7">Layer 6 and Layer 7</a></li>
+<li class="toc-entry toc-h4"><a href="#extra-feature-layers">Extra Feature Layers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#take-a-video-training-video-and-testing-video">Take A Video (Training Video and Testing Video)</a></li>
+<li class="toc-entry toc-h2"><a href="#setting-up-the-config-file">Setting Up The Config File</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#basic-configuration">Basic Configuration</a></li>
+<li class="toc-entry toc-h3"><a href="#validation-configuration">Validation Configuration</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#training-preparation">Training Preparation</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#frame-extraction">Frame Extraction</a></li>
+<li class="toc-entry toc-h3"><a href="#labeling">Labeling</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#here-we-go-its-training-time">Here We Go, It’s Training Time!</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#loss-function-graph">Loss Function Graph</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#testing-preparation">Testing Preparation</a></li>
+<li class="toc-entry toc-h2"><a href="#go-get-them-the-pavement-distresses-its-testing-time">Go Get Them (The Pavement Distresses)! It’s Testing Time!</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#a-brief-showcase-and-explanation-of-the-results">A Brief Showcase and Explanation of The Results</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#video-testing-1">Video Testing 1</a></li>
+<li class="toc-entry toc-h4"><a href="#video-testing-2">Video Testing 2</a></li>
+<li class="toc-entry toc-h4"><a href="#video-testing-3">Video Testing 3</a></li>
+<li class="toc-entry toc-h4"><a href="#video-testing-4">Video Testing 4</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#future-suggestion">Future Suggestion</a></li>
+<li class="toc-entry toc-h2"><a href="#side-notes">Side Notes</a></li>
+<li class="toc-entry toc-h2"><a href="#footnotes">Footnotes</a></li>
+</ul><h2 id="before-we-start-heres-a-diagram-process-of-this-project">
+<a class="anchor" href="#before-we-start-heres-a-diagram-process-of-this-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Before We Start, Here’s a Diagram Process of This Project</h2>
+
+<p><img src="/scrawl/images/pavement-distress-ssd/diagram-process.png" alt=""><br></p>
+
+<h2 id="a-brief-explanation-about-single-shot-detector-ssd">
+<a class="anchor" href="#a-brief-explanation-about-single-shot-detector-ssd" aria-hidden="true"><span class="octicon octicon-link"></span></a>A Brief Explanation About Single Shot Detector (SSD)</h2>
+
+<p>Single shot detector is a deep learning method presented by Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian Szegedy, Scott Reed4, Cheng-Yang Fu, Alexander C. Berg in their research paper <a href="https://arxiv.org/abs/1512.02325">SSD: Single Shot Multibox Detector</a>. There are 2 commonly used SSD model, that is, SSD300 and SSD512.
+<br>
+Here’s a brief explanation about SSD300 and SSD512:</p>
+<ul>
+  <li>SSD300: More fast.</li>
+  <li>SSD512: More accurate.</li>
+</ul>
+
+<p>Long story short, SSD300 is about speed. If you need speed than you should probably use SSD300 (i haven’t tried the mobilenet as base network at the time to type this, so at this time knowledge SSD300 is faster than SSD512). Meanwhile, SSD512 is about accuracy. It doesn’t really show up in image processing but in video processing, i notice that there’s a frame rate drop while doing live object detection. To be fair, SSD300 has frame rate drop as well but it’s still usable (around 7-10 frame per second) but SSD512 has frame rate around 3-5 frame per second. 
+Who want to watch a video with 3 fps?? If you’re that kind of person then, go ahead. You do you mate.</p>
+
+<p>For the record, at that time when I try live detection, i use opencv to display live detection video. i’m not sure whether it is opencv fault or the model fault because if I save the video result, the video itself has no frame rate drop. It’s weird but it happens, so let’s go on with saving the video and forget about live detection (for now, until i find some way to do live detection).</p>
+
+<p>So, in this project i’m not gonna make it live detection. Rather than live detections, we’re gonna save the video result first and then display it later. That way it could also reduce some computational cost.</p>
+
+<p>For those who still confused about live detection, to make things simpler, live detection is when you process the video, detect the object, and play the video at the same time. After you detect the object, you immediately display the frame that just recently processed and then processed the next frame. Repeat.</p>
+
+<h3 id="single-shot-detector-ssd-architecture-thats-used-in-this-project">
+<a class="anchor" href="#single-shot-detector-ssd-architecture-thats-used-in-this-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>Single Shot Detector (SSD) Architecture That’s Used in This Project</h3>
+<p>As explained above, in this project we’re gonna use SSD512. SSD512 is basically SSD with input image 512x512. The basic architecture of SSD contains 2 part, base network and extra feature layers. The base network layers are based on standard architecture used for high quality image classification (truncated before classification layers). The extra feature layers used for multi-scale feature maps for detection and convolutional predictors for detection.</p>
+
+<p>Here is an architecture single shot detector that used in this project (made this with <a href="http://alexlenail.me/NN-SVG/AlexNet.html">NN architecture maker</a>):
+<img src="/scrawl/images/pavement-distress-ssd/ssd-architecture.png" alt=""><br>
+Information:</p>
+<ol>
+  <li>Input image.</li>
+  <li>Base Network (truncated before classification layers).</li>
+  <li>Layer 6 and layer 7 of base network (from fully-connected layer turned into classification layer).</li>
+  <li>Extra feature layers.</li>
+  <li>Collection of boxes and scores.</li>
+</ol>
+
+<h4 id="base-network">
+<a class="anchor" href="#base-network" aria-hidden="true"><span class="octicon octicon-link"></span></a>Base Network</h4>
+<p>The base network used in this project is Visual Geometry Group (VGG). I chose VGG because of transfer learning capability so that i could have a good result with small dataset. To be more specific, in this project i used VGG16, here is a brief explanation of each layers:</p>
+<ol>
+  <li>In the first layer, there’s a convolutional process with kernel filter 3x3 and stride (total shift filter per pixel) 1 pixel. That process repeat 2 times and then did some max pooling with kernel filter 2x2 and stride 2 pixel.</li>
+  <li>In the second layer until fourth layer, the model did the same thing as in first layer.</li>
+  <li>The difference was in fifth layer. In fifth layer, the convolution process still the same as the other four layers but the max pooling process was different from the other four layers. The max pooling process used kernel filter 3x3 with stride 1 pixel with padding (adding zero value around pixel image) 1. You can check the illustration below to understand the process of max pooling with kernel filter 3x3, stride 1, and padding 1. <br>
+<img src="/scrawl/images/pavement-distress-ssd/max-pooling-illustration.png" alt="">
+</li>
+</ol>
+
+<p>And here’s a VGG16 after truncated from classification layers: <br>
+<img src="/scrawl/images/pavement-distress-ssd/truncated-vgg16.jpg" alt=""></p>
+
+<p>If you want to calculate the result from max polling, you can use this equation <sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote">1</a></sup>: <br>
+<img src="/scrawl/images/pavement-distress-ssd/max-pooling-equation.png" alt=""><br>
+Information:</p>
+<ol>
+  <li>kernel_size, stride, padding, and dilation can be 1 integer (in this case, the value for height and width are the same) or 2 integer (in this case, the first integer is height and the second integer is width).</li>
+  <li>For more info you can see <a href="https://pytorch.org/docs/stable/generated/torch.nn.MaxPool2d.html">pytorch page</a>.</li>
+</ol>
+
+<p>Here’s some example of max pooling calculation with input 32x32, kernel filter 3x3, stride 1, padding 1, and dilation 1: <br>
+<img src="/scrawl/images/pavement-distress-ssd/max-pooling-calculation.png" alt=""></p>
+
+<h4 id="layer-6-and-layer-7">
+<a class="anchor" href="#layer-6-and-layer-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Layer 6 and Layer 7</h4>
+<p>After feature extraction process in base network, the next layers is to change layer 6 and 7 of base network from fully-connected into convolutional layer with subsample parameters from fully-connected 6 (fc6) and fully-connected 7 (fc7). The convolution operation used in layer 6 and layer 7 is atrous convolution, you can see atrous convolution shift below: <br>
+<img src="/scrawl/images/pavement-distress-ssd/atrous-convolution.png" alt=""></p>
+
+<p>With atrous convolution we can expand area of observation for feature extraction while maintaning the amount of parameters fewer than traditional convolution operation.</p>
+
+<h4 id="extra-feature-layers">
+<a class="anchor" href="#extra-feature-layers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extra Feature Layers</h4>
+<p>Extra feature layers is a prediction layers. In this layer, the model predict the object using default box. Default box is a box with various aspect ratio in every location of feature maps with different size. You can see an example of default box below <sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">2</a></sup> <br>
+<img src="/scrawl/images/pavement-distress-ssd/default-box.png" alt=""></p>
+
+<p>In the last layer is a collection of default boxes which closer to ground truth box with confidence score from that default boxes.</p>
+
+<hr>
+
+<h2 id="take-a-video-training-video-and-testing-video">
+<a class="anchor" href="#take-a-video-training-video-and-testing-video" aria-hidden="true"><span class="octicon octicon-link"></span></a>Take A Video (Training Video and Testing Video)</h2>
+
+<p>In this part, i’m gonna explain about the video used in this project. The camera configuration, the place where the video taken, the camera angle and height from the road.</p>
+
+<p>The place where the video taken was in Surabaya, at Kertajaya Indah Timur IX, Kertajaya Indah Timur X, and Kertajaya Indah Timur XI. The camera angle was perpendicular(?) with the road (90 degrees) and the camera position from the road was 200 cm.</p>
+
+<p>There’re 7 video taken, 3 for training and 4 for testing. The format of the video was <code class="language-plaintext highlighter-rouge">*.mp4</code>. You can check the location partition of the video taken below: <br>
+<img src="/scrawl/images/pavement-distress-ssd/video-taken.jpg" alt=""><br>
+The black block is for testing and the white block is for training. You can check the position of the camera below: <br>
+<img src="/scrawl/images/pavement-distress-ssd/camera-position.png" alt=""></p>
+
+<hr>
+
+<h2 id="setting-up-the-config-file">
+<a class="anchor" href="#setting-up-the-config-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting Up The Config File</h2>
+
+<p>For more detailed configuration please check <a href="https://github.com/lufficc/SSD/blob/master/DEVELOP_GUIDE.md">develop guide by Congcong Li</a>. In this post i’m gonna explain it the easiest way.</p>
+
+<h3 id="basic-configuration">
+<a class="anchor" href="#basic-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic Configuration</h3>
+<p>To make things easier, copy the format dataset you want. For example, in this project i want to use COCO dataset format. Then, i copied the <code class="language-plaintext highlighter-rouge">coco.py</code> in the path <code class="language-plaintext highlighter-rouge">ssd/data/datasets/</code> and rename it to <code class="language-plaintext highlighter-rouge">my_dataset.py</code>. After that, edit the class names for your classification class. In this project, the class i’m gonna use is alligator crack, longitudinal crack, transverse crack, and pothole. Also, don’t forget to change the class <code class="language-plaintext highlighter-rouge">COCODataset</code> to <code class="language-plaintext highlighter-rouge">MyDataset</code>.</p>
+
+<p>The next step is to add those configuration to <code class="language-plaintext highlighter-rouge">__init__.py</code> in ssd/data/datasets/. For example:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">.my_dataset</span> <span class="kn">import</span> <span class="n">MyDataset</span>
+
+<span class="n">_DATASETS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'VOCDataset'</span><span class="p">:</span> <span class="n">VOCDataset</span><span class="p">,</span>
+    <span class="s">'COCODataset'</span><span class="p">:</span> <span class="n">COCODataset</span><span class="p">,</span>
+    <span class="s">'MyDataset'</span><span class="p">:</span> <span class="n">MyDataset</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Another next step is to add the path of your datasets and anotations to the <code class="language-plaintext highlighter-rouge">path_catlog.py</code> in <code class="language-plaintext highlighter-rouge">ssd/config/</code>. For example:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">class</span> <span class="nc">DatasetCatalog</span><span class="p">:</span>
+    <span class="n">DATA_DIR</span> <span class="o">=</span> <span class="s">'datasets'</span>
+    <span class="n">DATASETS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">'my_custom_train_dataset'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">"data_dir"</span><span class="p">:</span> <span class="s">"train"</span><span class="p">,</span>
+            <span class="s">"ann_file"</span><span class="p">:</span> <span class="s">"annotations/train.json"</span>
+        <span class="p">},</span>
+
+        <span class="s">'my_custom_validation_dataset'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">"data_dir"</span><span class="p">:</span> <span class="s">"validation"</span><span class="p">,</span>
+            <span class="s">"ann_file"</span><span class="p">:</span> <span class="s">"annotations/validation.json"</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+    
+    <span class="o">@</span><span class="nb">staticmethod</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s">"my_custom_train_dataset"</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">my_custom_train_dataset</span> <span class="o">=</span> <span class="n">DatasetCatalog</span><span class="p">.</span><span class="n">DATA_DIR</span>
+            <span class="n">attrs</span> <span class="o">=</span> <span class="n">DatasetCatalog</span><span class="p">.</span><span class="n">DATASETS</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                    <span class="n">data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">my_custom_train_dataset</span><span class="p">,</span> <span class="n">attrs</span><span class="p">[</span><span class="s">'data_dir'</span><span class="p">]),</span>
+                    <span class="n">ann_file</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">my_custom_train_dataset</span><span class="p">,</span> <span class="n">attrs</span><span class="p">[</span><span class="s">'ann_file'</span><span class="p">]),</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="s">"MyDataset"</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+
+         <span class="k">elif</span> <span class="s">"my_custom_test_dataset"</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">my_custom_train_dataset</span> <span class="o">=</span> <span class="n">DatasetCatalog</span><span class="p">.</span><span class="n">DATA_DIR</span>
+            <span class="n">attrs</span> <span class="o">=</span> <span class="n">DatasetCatalog</span><span class="p">.</span><span class="n">DATASETS</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                    <span class="n">data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">my_custom_train_dataset</span><span class="p">,</span> <span class="n">attrs</span><span class="p">[</span><span class="s">'data_dir'</span><span class="p">]),</span>
+                    <span class="n">ann_file</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">my_custom_train_dataset</span><span class="p">,</span> <span class="n">attrs</span><span class="p">[</span><span class="s">'ann_file'</span><span class="p">]),</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="s">"MyDataset"</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>And finally, for the <code class="language-plaintext highlighter-rouge">*.yaml</code> file for configuration i copied <code class="language-plaintext highlighter-rouge">vgg_ssd512_coco_trainval35k.yaml</code> in <code class="language-plaintext highlighter-rouge">configs</code> folder and rename it to <code class="language-plaintext highlighter-rouge">config.yaml</code>. What i changed from that file was the train and test (or more like validation) like in <code class="language-plaintext highlighter-rouge">path_catlog.py</code>, the batch size, and num_classes. I changed batch size because my laptop gpu only capable of 4 batch size. Here’s an example:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Model</span><span class="p">:</span>
+    <span class="n">num_classes</span><span class="p">:</span> <span class="mi">5</span> <span class="c1">#the __background__ counted
+</span>    <span class="p">...</span>
+    <span class="n">DATASETS</span><span class="p">:</span>
+        <span class="n">TRAIN</span><span class="p">:</span> <span class="p">(</span><span class="s">"my_custom_train_dataset"</span><span class="p">,</span> <span class="p">)</span>
+        <span class="n">TEST</span><span class="p">:</span> <span class="p">(</span><span class="s">"my_custom_test_dataset"</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">SOLVER</span><span class="p">:</span>
+        <span class="p">...</span>
+        <span class="n">BATCH_SIZE</span><span class="p">:</span> <span class="mi">4</span>
+        <span class="p">...</span>
+    
+    <span class="n">OUTPUT_DIR</span><span class="p">:</span> <span class="s">'outputs/ssd_custom_coco_format'</span>
+</code></pre></div></div>
+<p>You don’t need to create folder <code class="language-plaintext highlighter-rouge">ssd_custom_coco_format</code>, when the training begin the folder gonna created automatically (if the folder didn’t exist).</p>
+
+<h3 id="validation-configuration">
+<a class="anchor" href="#validation-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Validation Configuration</h3>
+<p>First of all, copy <code class="language-plaintext highlighter-rouge">coco</code> folder in <code class="language-plaintext highlighter-rouge">ssd/data/datasets/evaluation/</code> and rename it to <code class="language-plaintext highlighter-rouge">my_dataset</code>. Rename the <code class="language-plaintext highlighter-rouge">def coco_evaluation</code> to <code class="language-plaintext highlighter-rouge">def my_dataset_evaluation</code> in file <code class="language-plaintext highlighter-rouge">__init__.py</code>. After that, add folder <code class="language-plaintext highlighter-rouge">my_dataset</code> to file <code class="language-plaintext highlighter-rouge">__init__.py</code> in <code class="language-plaintext highlighter-rouge">ssd/data/datasets/evaluation/</code>. For example:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">ssd.data.datasets</span> <span class="kn">import</span> <span class="n">VOCDataset</span><span class="p">,</span> <span class="n">COCODataset</span><span class="p">,</span> <span class="n">MyDataset</span>
+<span class="p">...</span>
+<span class="kn">from</span> <span class="nn">.my_dataset</span> <span class="kn">import</span> <span class="n">my_dataset_evaluation</span>
+
+<span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="p">...</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">MyDataset</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">my_dataset_evaluation</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">NotImplementError</span>
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="training-preparation">
+<a class="anchor" href="#training-preparation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Training Preparation</h2>
+
+<p>Before training the model, we need to do some preparation. There’re two steps in this process, frame extraction and labeling. Without further ado, let’s get started.</p>
+
+<h3 id="frame-extraction">
+<a class="anchor" href="#frame-extraction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Frame Extraction</h3>
+<p>In this process, i used python library <code class="language-plaintext highlighter-rouge">opencv</code> to extract some frame. Here’s the script:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">fire</span> <span class="kn">import</span> <span class="n">Fire</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">video_file</span><span class="p">,</span> <span class="n">path_save</span><span class="p">,</span> <span class="n">speed</span><span class="p">):</span> <span class="c1"># the lower the speed the fastest the frame_rates, speed = 0 (pause)
+</span>    <span class="n">vidcap</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">video_file</span><span class="p">)</span>
+    <span class="n">current_frame</span> <span class="o">=</span> <span class="mi">0</span> 
+    <span class="n">speed_frame</span> <span class="o">=</span> <span class="n">speed</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">vidcap</span><span class="p">.</span><span class="n">isOpened</span><span class="p">()):</span> 
+        <span class="n">success</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">vidcap</span><span class="p">.</span><span class="n">read</span><span class="p">()</span> <span class="c1"># success = retrival value for frame 
+</span>        <span class="n">length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">vidcap</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="p">.</span><span class="n">CAP_PROP_FRAME_COUNT</span><span class="p">))</span> 
+        <span class="k">print</span><span class="p">(</span><span class="s">f'Current Frame: </span><span class="si">{</span><span class="n">current_frame</span><span class="si">}</span><span class="s">/</span><span class="si">{</span><span class="n">length</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+        <span class="n">current_frame</span> <span class="o">+=</span> <span class="mi">1</span> 
+
+        <span class="k">if</span> <span class="n">success</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="n">cv2</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="s">'Video'</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cv2</span><span class="p">.</span><span class="n">waitKey</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s">'s'</span><span class="p">):</span> <span class="c1"># press s to save the frame
+</span>                <span class="n">cv2</span><span class="p">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s">f"</span><span class="si">{</span><span class="n">path_save</span><span class="si">}</span><span class="s">/frame_</span><span class="si">{</span><span class="n">current_frame</span><span class="si">}</span><span class="s">.jpg"</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">cv2</span><span class="p">.</span><span class="n">waitKey</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s">'q'</span><span class="p">):</span> <span class="c1"># press q to quit
+</span>                <span class="k">break</span>
+
+            <span class="k">elif</span> <span class="n">cv2</span><span class="p">.</span><span class="n">waitKey</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s">'w'</span><span class="p">):</span> <span class="c1"># play/pause
+</span>                <span class="k">if</span> <span class="n">speed</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">speed</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">elif</span> <span class="n">speed</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">speed</span> <span class="o">=</span> <span class="n">speed_frame</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">vidcap</span><span class="p">.</span><span class="n">release</span><span class="p">()</span>
+            <span class="n">cv2</span><span class="p">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">Fire</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Every time we press <code class="language-plaintext highlighter-rouge">s</code>, it’s gonna take the current frame at that time. For the speed, i usually go for 25 but if you want slower you could change it to 10 or lower (as long as it’s not 0, please).</p>
+
+<p>After the extraction process, i have 652 images/frames for training process. The 652 images/frames have this proportion (There’re a few object in one frame):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pavement Distress</th>
+      <th>Object</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alligator Crack</td>
+      <td>367</td>
+    </tr>
+    <tr>
+      <td>Longitudinal Crack</td>
+      <td>951</td>
+    </tr>
+    <tr>
+      <td>Transverse Crack</td>
+      <td>243</td>
+    </tr>
+    <tr>
+      <td>Potholes</td>
+      <td>161</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="labeling">
+<a class="anchor" href="#labeling" aria-hidden="true"><span class="octicon octicon-link"></span></a>Labeling</h3>
+<p>For the labeling i use labelme, you could check the tutorial <a href="https://www.dlology.com/blog/how-to-create-custom-coco-data-set-for-instance-segmentation/">here</a> and to change labelme format to coco dataset format <a href="https://github.com/Tony607/labelme2coco">here</a>. There’s nothing much to explain about labeling, you just give box to an object and save with the label you want. So, let’s move on.</p>
+
+<hr>
+
+<h2 id="here-we-go-its-training-time">
+<a class="anchor" href="#here-we-go-its-training-time" aria-hidden="true"><span class="octicon octicon-link"></span></a>Here We Go, It’s Training Time!</h2>
+
+<p>For the training process i use google colaboratory (how to use google colaboratory is beyond this post, sorry) but you could also use other services such as <a href="https://www.paperspace.com/?utm_expid=.XZhCPCNrQCuE1jH9t8bIgg.0&amp;utm_referrer=">paperspace</a>. Here’s an example of command line if you use you local machine or cloud services: <br>
+Local: <br></p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python train.py <span class="nt">--config-file</span> configs/config.yaml
+</code></pre></div></div>
+<p>Cloud: <br></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!python train.py --config-file configs/config.yaml
+</code></pre></div></div>
+<p>Basically there’s no difference so i think it’s not that difficult, good luck.</p>
+
+<h3 id="loss-function-graph">
+<a class="anchor" href="#loss-function-graph" aria-hidden="true"><span class="octicon octicon-link"></span></a>Loss Function Graph</h3>
+<p>As the training begin, please don’t forget to check the loss function. The closer the loss function to zero the better but be carefull so that it doesn’t overfitting (a model memorized the training data and have difficulty predicting the testing data). Here’s the unscientific tips from me, stop the training process if you don’t see any improvement in loss function. For example, if the loss function stuck at 0.9 - 0.5 for quite some time then you should stop the process. Here’s my loss function graph: <br>
+<img src="/scrawl/images/pavement-distress-ssd/loss-function-graph.jpg" alt=""></p>
+
+<hr>
+
+<h2 id="testing-preparation">
+<a class="anchor" href="#testing-preparation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Testing Preparation</h2>
+
+<p>Before testing the model, there’re a few things we need to do:</p>
+<ol>
+  <li>Copy or move video you want to use into folder <code class="language-plaintext highlighter-rouge">input</code>.</li>
+  <li>Copy or move configuration file (*.yaml) into folder <code class="language-plaintext highlighter-rouge">configs</code>.</li>
+  <li>Copy or move folder that has training result into folder <code class="language-plaintext highlighter-rouge">outputs</code> (in this project the folder name is <code class="language-plaintext highlighter-rouge">ssd_custom_coco_format</code>). The folder name must be the same as in configuration file <code class="language-plaintext highlighter-rouge">OUTPUT_DIR</code>.</li>
+  <li>If every file and folder in the right places, then let’s move on.</li>
+</ol>
+
+<hr>
+
+<h2 id="go-get-them-the-pavement-distresses-its-testing-time">
+<a class="anchor" href="#go-get-them-the-pavement-distresses-its-testing-time" aria-hidden="true"><span class="octicon octicon-link"></span></a>Go Get Them (The Pavement Distresses)! It’s Testing Time!</h2>
+
+<p>For this project, there’s a problem with the counting. Because i have no idea how to implement tracking so i made the counting in the iteration frame (detection at every frame, which is insane) and that’s makes the total counting more than the actual object. To fix this problem (kind of), i do the counting for every 20 frames. The reason was because at every 20 frames, the object detected was closer to the total of actual object than every 10, 15, 25, and 30 frames. So, for the evaluation i’m gonna evaluate the detection result every 20 frames. Thanks.</p>
+
+<h3 id="a-brief-showcase-and-explanation-of-the-results">
+<a class="anchor" href="#a-brief-showcase-and-explanation-of-the-results" aria-hidden="true"><span class="octicon octicon-link"></span></a>A Brief Showcase and Explanation of The Results</h3>
+<p>Below is the result:</p>
+
+<h4 id="video-testing-1">
+<a class="anchor" href="#video-testing-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Video Testing 1</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Class Name</th>
+      <th>Counting Results</th>
+      <th>Actual Objects</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alligator Crack</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>Longitudinal Crack</td>
+      <td>4</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <td>Transverse Crack</td>
+      <td>8</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>Potholes</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Class Name</th>
+      <th>True Positive</th>
+      <th>True Negative</th>
+      <th>False Positive</th>
+      <th>False Negative</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alligator Crack</td>
+      <td>2</td>
+      <td>11</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>Longitudinal Crack</td>
+      <td>4</td>
+      <td>9</td>
+      <td>1</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>Transverse Crack</td>
+      <td>6</td>
+      <td>7</td>
+      <td>1</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>Potholes</td>
+      <td>1</td>
+      <td>12</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="video-testing-2">
+<a class="anchor" href="#video-testing-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Video Testing 2</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Class Name</th>
+      <th>Counting Results</th>
+      <th>Actual Objects</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alligator Crack</td>
+      <td>14</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>Longitudinal Crack</td>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>Transverse Crack</td>
+      <td>1</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>Potholes</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Class Name</th>
+      <th>True Positive</th>
+      <th>True Negative</th>
+      <th>False Positive</th>
+      <th>False Negative</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alligator Crack</td>
+      <td>7</td>
+      <td>3</td>
+      <td>7</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>Longitudinal Crack</td>
+      <td>2</td>
+      <td>8</td>
+      <td>2</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>Transverse Crack</td>
+      <td>1</td>
+      <td>9</td>
+      <td>0</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>Potholes</td>
+      <td>0</td>
+      <td>10</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="video-testing-3">
+<a class="anchor" href="#video-testing-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Video Testing 3</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Class Name</th>
+      <th>Counting Results</th>
+      <th>Actual Objects</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alligator Crack</td>
+      <td>21</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>Longitudinal Crack</td>
+      <td>7</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>Transverse Crack</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>Potholes</td>
+      <td>2</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Class Name</th>
+      <th>True Positive</th>
+      <th>True Negative</th>
+      <th>False Positive</th>
+      <th>False Negative</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alligator Crack</td>
+      <td>8</td>
+      <td>7</td>
+      <td>10</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Longitudinal Crack</td>
+      <td>4</td>
+      <td>11</td>
+      <td>2</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>Transverse Crack</td>
+      <td>1</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Potholes</td>
+      <td>2</td>
+      <td>13</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="video-testing-4">
+<a class="anchor" href="#video-testing-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Video Testing 4</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Class Name</th>
+      <th>Counting Results</th>
+      <th>Actual Objects</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alligator Crack</td>
+      <td>23</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <td>Longitudinal Crack</td>
+      <td>13</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <td>Transverse Crack</td>
+      <td>4</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>Potholes</td>
+      <td>5</td>
+      <td>22</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Class Name</th>
+      <th>True Positive</th>
+      <th>True Negative</th>
+      <th>False Positive</th>
+      <th>False Negative</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alligator Crack</td>
+      <td>10</td>
+      <td>14</td>
+      <td>8</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>Longitudinal Crack</td>
+      <td>8</td>
+      <td>16</td>
+      <td>3</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <td>Transverse Crack</td>
+      <td>2</td>
+      <td>22</td>
+      <td>2</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>Potholes</td>
+      <td>4</td>
+      <td>20</td>
+      <td>0</td>
+      <td>18</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>From the counting results above we can see that the model struggle to detect longitudinal crack and have a lot of alligator crack detections (detected two times or more). There’re 2 reasons for that, the first is that there’s not enough small-sized longitudinal crack in training dataset and the second is the frame field-of-view too narrow so that a lot of alligator crack devided into different frames and detected multiple times. Here’s an example of that problem: <br></p>
+<ul>
+  <li>
+    <p>Undetected Small Longitudinal Crack:
+<img src="/scrawl/images/pavement-distress-ssd/undetected-small-crack.jpg" alt=""></p>
+  </li>
+  <li>
+    <p>Multiple Detection of Alligator Crack:
+<img src="/scrawl/images/pavement-distress-ssd/too-much-detection.jpg" alt=""></p>
+  </li>
+</ul>
+
+<p>And then, we have the precision and recall of the model as below:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Video</th>
+      <th>Precision</th>
+      <th>Recall</th>
+      <th>Accuracy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Video Testing 1</td>
+      <td>91.43%</td>
+      <td>46.25%</td>
+      <td>60.69%</td>
+    </tr>
+    <tr>
+      <td>Video Testing 2</td>
+      <td>50%</td>
+      <td>36.45%</td>
+      <td>69.58%</td>
+    </tr>
+    <tr>
+      <td>Video Testing 3</td>
+      <td>77.78%</td>
+      <td>69.17%</td>
+      <td>75.45%</td>
+    </tr>
+    <tr>
+      <td>Video Testing 4</td>
+      <td>69.57%</td>
+      <td>24.42%</td>
+      <td>53.81%</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>At the time of making this post, i’m still not sure whether to use accuracy or f1-score so for now i’m gonna use accuracy.</p>
+</blockquote>
+
+<p>The difference between video testing 1 to 4 is the total of small-sized pavement distress and video testing 3 has the least total of small-sized pavement distress of all video. So that means, for this trained weight, we obtain the best accuracy when we have the least small-sized pavement distress.</p>
+
+<hr>
+
+<h2 id="future-suggestion">
+<a class="anchor" href="#future-suggestion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Future Suggestion</h2>
+
+<p>By no means this is not the best implementation of SSD for pavement distress detection. I have only a few training dataset and a few testing dataset. So you could say what i did here is a minimum requirement that result in minimum performance. You can improve this project quite a lot.</p>
+
+<p>If you want to improve this project, you can start from these things:</p>
+<ol>
+  <li>Use a lot of training data and testing data.</li>
+  <li>Use a camera that has wide angle lens (because 50mm lens is not wide enough).</li>
+</ol>
+
+<hr>
+
+<h2 id="side-notes">
+<a class="anchor" href="#side-notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Side Notes</h2>
+
+<p>This is not really important, it’s more like a momento for me. In the undergraduate thesis defence(?) there’s this examiner who has a misconception about testing process and validation process. That examiner switch the possition of testing process as validation process and validation process as testing process, so that really confusing and we have quite an argument there. I even ask in <a href="https://stats.stackexchange.com/q/484584">stackexchange</a> if i’m wrong or not and it turns out that examiner has switch the term for testing and validation. Now i feel stupid for having an argument with that examiner.</p>
+
+<hr>
+
+<h2 id="footnotes">
+<a class="anchor" href="#footnotes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Footnotes</h2>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:2" role="doc-endnote">
+      <p><a href="https://pytorch.org/docs/stable/generated/torch.nn.MaxPool2d.html">Pytorch maxpool2d</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://arxiv.org/abs/1512.02325">SSD: Single Shot Multibox Detector</a>. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div><a class="u-url" href="/scrawl/deep%20learning/english/2020/10/11/pavement-distress-ssd.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/scrawl/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/scrawl/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/scrawl/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Unstable Explanation</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/bruhtus" title="bruhtus"><svg class="svg-icon grey"><use xlink:href="/scrawl/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/diawanchris" title="diawanchris"><svg class="svg-icon grey"><use xlink:href="/scrawl/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
